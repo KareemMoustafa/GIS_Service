@@ -18,7 +18,10 @@ exports.polyline = (req, res) => {
             if (lat > 0 && lng > 0) points.push([doc[key].location.coordinates[1], doc[key].location.coordinates[0]])
         }
         osrm_route(points).then(result => {
-            if (result.routes) res.send(JSON.stringify(result.routes[0].geometry));
+            if (result.routes) {
+                let data = {'geometry': result.routes[0].geometry }
+                res.send(data);
+            }
             return res.status(404).send({
                 message: result.code
             });  
