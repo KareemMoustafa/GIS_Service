@@ -13,13 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // Configuring the database
-const dbConfig = require('./config/db.js');
+const config = require('./config/config.js');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
 // Connecting to the database
-mongoose.connect(dbConfig.url, {
+mongoose.connect(config.url, {
     useNewUrlParser: true,
     authSource: 'admin'
 }).then(() => {
@@ -37,6 +37,6 @@ app.get('/', (req, res) => {
 require('./app/routes/geo.js')(app);
 
 // listen for requests
-app.listen(3000, () => {
+app.listen(config.port, () => {
     console.log("Server is listening on port 3000");
 });
